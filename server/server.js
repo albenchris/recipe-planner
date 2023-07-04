@@ -22,18 +22,13 @@ get(`${edamam}/recipes/v2?q=${query}&mealType=${mealType}&random=${random}&${req
 })
   .then(res => {
     // log(res.data);
-    const hits = res.data.hits;
-    log(hits[0].recipe.label);
-    log(hits[0].recipe.uri);
-    log(hits[0].recipe.source);
-    log(hits[0].recipe.cautions);
-    log(hits[0].recipe.calories);
-    log(hits[0].recipe.ingredientLines);
+    const hits = res.data.hits;    
+    // const recipe = hits[0].recipe;
+    // log(recipe.label + ':', recipe);
     
-
-    // hits.map(hit => {
-    //   log(hit.recipe);
-    //   log(hit._links.self.href);
-    // });
+    hits.map(hit => {
+      const recipe = hit.recipe;
+      log(recipe.label);
+    });
   })
   .catch(err => console.error(err));
