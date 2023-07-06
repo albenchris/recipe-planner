@@ -20,15 +20,13 @@ get(`${edamam}/recipes/v2?q=${query}&mealType=${mealType}&random=${random}&${req
     'Accept-Language': 'en',
   }
 })
+  .then(res => res.data.hits[0].recipe.uri.split('recipe_')[1])
+  .then(async recipeId => {
+    const res = await get(`${edamam}/recipes/v2/${recipeId}?${requiredText}`);
+    const data = await res.data;
+    return data;
+  })
   .then(res => {
-    // log(res.data);
-    const hits = res.data.hits;    
-    // const recipe = hits[0].recipe;
-    // log(recipe.label + ':', recipe);
-    
-    hits.map(hit => {
-      const recipe = hit.recipe;
-      log(recipe.label);
-    });
+    log(res);
   })
   .catch(err => console.error(err));
